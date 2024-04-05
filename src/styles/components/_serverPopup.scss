@@ -1,0 +1,93 @@
+#create-server-form {
+
+  .form-content,
+  .form-footer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-content {
+    padding: 24px 16px 16px;
+  }
+
+  .form-footer {
+    padding: 16px;
+    background-color: #2b2d31;
+  }
+
+
+  h2 {
+    margin: 0;
+    text-align: center;
+    color: #fff;
+  }
+
+  p {
+    text-align: center;
+    margin: .5rem;
+  }
+
+  label {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .input-container {
+    position: relative;
+  }
+
+  input,
+  button {
+    background-color: #1e1f22;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 4px;
+    font-weight: 200;
+  }
+
+  #copy-code {
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+
+    &[data-copy-msg]::after {
+      content: attr(data-copy-msg);
+      background-color: #1e1f22;
+      color: #fff;
+      padding: 4px 8px;
+      font-size: 14px;
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+  }
+
+  button[type="submit"] {
+    background-color: #5865F2;
+    margin-left: auto;
+    padding-inline: 1.5rem;
+    cursor: pointer;
+
+    transition: background-color 100ms linear;
+    font-size: 16px;
+    font-weight: 400;
+
+    &:hover:not(:disabled) {
+      background-color: #4752c4;
+    }
+
+    &:disabled {
+      cursor: default;
+      background-color: #313338;
+    }
+  }
+}

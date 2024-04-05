@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusLarge } from '@fortawesome/pro-regular-svg-icons';
 
 import { requestURL, websocketURL } from '../lib/globals';
-import { Navbar, NavbarLinkProps } from '../components';
+import { ServerPopup, Navbar, NavbarLinkProps } from '../components';
 type Message = {
   data: any,
   messageType: 'connected-users' | 'server' | 'message'
@@ -36,10 +36,11 @@ function Home() {
   const [messageInput, setMessageInput] = useState<string>('');
   const [allUsers, setAllUsers] = useState<Array<SafeUser>>([]);
   const [allMessages, setAllMessages] = useState<Array<ChatMessage>>([]);
+  const [isServerPopupOpen, setIsServerPopupOpen] = useState<Boolean | null>(null);
 
   const testLink: NavbarLinkProps = {
     title: 'Add a server',
-    onClick: () => console.log('Hello world'),
+    onClick: () => setIsServerPopupOpen(true),
     icon: <FontAwesomeIcon icon={faPlusLarge} />
   }
 
@@ -64,7 +65,12 @@ function Home() {
     setMessageInput('');
   }
 
+  const createServer = (serverName: string, serverCode: string): void => {
+    console.log(serverName, serverCode);
+  }
+
   useEffect(() => {
+
     const setupWebSocket = () => {
       const ws = new WebSocket(websocketURL);
 
@@ -100,8 +106,20 @@ function Home() {
     }
   }, [navigate]); // This effect runs once after the initial render and never again
 
+  useEffect(() => {
+    const autoScroll = () => {
+      const msgContainer = document.getElementById('message-container');
+      if (msgContainer) {
+        // Ensure scrolling to the bottom
+        msgContainer.scrollTop = msgContainer.scrollHeight;
+      }
+    }
+    autoScroll();
+  }, [allMessages]);
+
   return (
     <div className="fullscreen-page flex">
+      <ServerPopup open={isServerPopupOpen} setOpen={setIsServerPopupOpen} createServer={createServer} />
       <Navbar links={navbarLinks} />
       <div className="group-chat-container">
         <div id="message-container">
@@ -123,6 +141,7 @@ function Home() {
             id="message-input"
             onInput={(e) => setMessageInput((e.target as HTMLInputElement).value)}
             value={messageInput}
+            placeholder='Send a message'
           />
           <button type="submit" id="form-submit" disabled={!Boolean(messageInput)}>
             <i className="fa-solid fa-paper-plane"></i>
