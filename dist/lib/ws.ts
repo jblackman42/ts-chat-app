@@ -22,9 +22,9 @@ function broadcast(msg: Message) {
 }
 
 function updateClients(): void {
-  const userNamesArray = users.filter(user => user.connected).map(user => user.name);
+  const safeUsersArray = users.map(user => { return { name: user.name, connected: user.connected } });
   const message: Message = {
-    data: userNamesArray,
+    data: safeUsersArray,
     messageType: 'connected-users'
   }
   broadcast(message);

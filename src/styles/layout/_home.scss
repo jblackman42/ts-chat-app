@@ -1,22 +1,38 @@
-.online-users-container {
-  background-color: white;
-  width: max-content;
+.users-container {
+  background-color: #2b2d31;
+  color: #949ba4;
+  width: 250px;
   min-height: 100dvh;
+  overflow: hidden;
 
-  .online-users {
+
+  .users {
     margin: 0;
-    padding: 1rem;
+    padding: 2rem 1rem;
     list-style: none;
 
-    h1 {
+    p.label {
+      text-transform: uppercase;
       margin: 0;
-      margin-bottom: .5rem;
-      white-space: nowrap;
 
+      &:not(:first-of-type) {
+        margin-top: 2rem;
+      }
     }
 
     li {
       padding-left: .5rem;
+      padding-top: .5rem;
+      // color: #2ECC71;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &.offline {
+        color: #949ba4;
+        opacity: 0.6;
+      }
     }
   }
 }
@@ -29,9 +45,11 @@
   flex-direction: column;
   justify-content: flex-end;
 
+  background-color: #313338;
+
   #message-container {
     overflow-y: auto;
-    padding: .5rem .5rem 0;
+    padding: .5rem 1rem 0;
 
     /* width */
     &::-webkit-scrollbar {
@@ -58,41 +76,28 @@
 
     .message {
 
-      &.internal {
-        text-align: right;
+      p {
+        margin: 0;
 
-        p.text {
-          color: white;
-          margin-left: auto;
-          background-color: #3498db;
-        }
-      }
-
-      p.text {
-        margin-block: 0 .5rem;
-        background-color: #ddd;
-        padding: 4px 8px;
-        border-radius: 9in;
-        width: max-content;
+        margin-top: 0.25rem;
+        color: white;
+        font-size: 20px;
+        font-family: "Roboto", sans-serif;
       }
 
       p.name {
-        color: white;
-        font-size: 12px;
-        background-color: transparent;
-        padding: 0;
-        padding-inline: 4px;
-        margin-block: .5rem 0;
+        font-weight: bold;
+        margin-top: 1rem;
+      }
+
+      p.text {
+        padding-left: 2px;
       }
 
       .date {
-        visibility: hidden;
-        display: none;
-      }
-
-      &:hover .date {
-        visibility: visible;
-        display: inline;
+        padding-left: .5rem;
+        font-size: 14px;
+        color: #949ba4;
       }
     }
 
@@ -100,30 +105,32 @@
 
   #input-form {
     display: flex;
-    padding: 4px;
-    margin: 4px;
-    border: 1px solid #95a5a6;
-    border-radius: 9in;
-    background-color: white;
+    padding: 8px;
+    margin: 1rem;
+    border-radius: 8px;
+    background-color: #43464d;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
     input {
       width: 100%;
       border: none;
       outline: none;
-      margin: 0 .5rem;
-      font-size: 1rem;
+      font-size: 20px;
+      background-color: transparent;
+      color: white;
     }
 
     button {
       color: white;
-      background-color: #3498db;
       border: none;
       outline: none;
-      aspect-ratio: 1;
-      border-radius: 50%;
+      background-color: transparent;
+      font-size: 24px;
+      cursor: pointer;
 
       &:disabled {
-        background-color: #95a5a6;
+        cursor: default;
+        opacity: 0.6;
       }
     }
   }

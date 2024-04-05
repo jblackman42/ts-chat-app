@@ -1,15 +1,21 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios, { all } from 'axios';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusLarge } from '@fortawesome/pro-regular-svg-icons';
 
 import { requestURL, websocketURL } from '../lib/globals';
-
+import { Navbar, NavbarLinkProps } from '../components';
 type Message = {
   data: any,
   messageType: 'connected-users' | 'server' | 'message'
 }
 type User = {
   clientIp: string,
+  name: string,
+  connected: boolean
+}
+type SafeUser = {
   name: string,
   connected: boolean
 }
@@ -28,8 +34,17 @@ function Home() {
   const navigate = useNavigate();
   const userCheckedRef = useRef(false);
   const [messageInput, setMessageInput] = useState<string>('');
-  const [connectedUsers, setConnectedUsers] = useState<Array<string>>([])
-  const [allMessages, setAllMessages] = useState<Array<ChatMessage>>([])
+  const [allUsers, setAllUsers] = useState<Array<SafeUser>>([]);
+  const [allMessages, setAllMessages] = useState<Array<ChatMessage>>([]);
+
+  const testLink: NavbarLinkProps = {
+    title: 'Add a server',
+    onClick: () => console.log('Hello world'),
+    icon: <FontAwesomeIcon icon={faPlusLarge} />
+  }
+
+  // const [navbarLinks, setNavbarLinks] = useState<Array<NavbarLinkProps>>([testLink]);
+  const navbarLinks: Array<NavbarLinkProps> = [testLink];
 
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -59,7 +74,7 @@ function Home() {
           const { data, messageType } = JSON.parse(e.data);
           switch (messageType) {
             case 'connected-users':
-              setConnectedUsers(data);
+              setAllUsers(data);
               break;
             case 'message':
               setAllMessages(msgs => [...msgs, data]);
@@ -87,12 +102,7 @@ function Home() {
 
   return (
     <div className="fullscreen-page flex">
-      <div className="online-users-container">
-        <ul className="online-users">
-          <h1>Online Users</h1>
-          {connectedUsers.map((name, i) => <li key={i}>{name}</li>)}
-        </ul>
-      </div>
+      <Navbar links={navbarLinks} />
       <div className="group-chat-container">
         <div id="message-container">
           {allMessages.map((message, i) => {
@@ -100,8 +110,8 @@ function Home() {
             const { name, text, date } = message;
             const dateVal = new Date(date);
             const dateString = `${dateVal.toLocaleDateString()} ${dateVal.toLocaleTimeString('en-us', { hour: 'numeric', minute: 'numeric' })}`
-            return <div className={`message ${name === user?.name ? 'internal' : ''}`} key={i}>
-              {lastMessage?.name !== name || new Date(date).getTime() - new Date(lastMessage?.date).getTime() > (1000 * 60) ? <p className="name">{name}<span className="date"> • {dateString}</span> </p> : ''}
+            return <div className="message" key={i}>
+              {lastMessage?.name !== name || new Date(date).getTime() - new Date(lastMessage?.date).getTime() > (1000 * 60) ? <p className="name">{name}<span className="date">{dateString}</span> </p> : ''}
               <p className="text">{text}</p>
             </div>
           })}
@@ -115,9 +125,18 @@ function Home() {
             value={messageInput}
           />
           <button type="submit" id="form-submit" disabled={!Boolean(messageInput)}>
-            <i className="fa-solid fa-arrow-up"></i>
+            <i className="fa-solid fa-paper-plane"></i>
           </button>
         </form>
+      </div>
+
+      <div className="users-container">
+        <ul className="users">
+          <p className="label">online - {allUsers.filter(user => user.connected).length}</p>
+          {allUsers.filter(user => user.connected).map((user, i) => <li key={i}>{user.name}</li>)}
+          <p className="label">offline - {allUsers.filter(user => !user.connected).length}</p>
+          {allUsers.filter(user => !user.connected).map((user, i) => <li key={i} className="offline">{user.name}</li>)}
+        </ul>
       </div>
     </div>
   );
