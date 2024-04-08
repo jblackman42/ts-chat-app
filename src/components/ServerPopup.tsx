@@ -48,6 +48,8 @@ function ServerPopup({ open = null, setOpen, createServer }: { open: Boolean | n
     e.preventDefault();
     createServer(serverName, serverCode);
     setOpen(false);
+    setServerName('');
+    setServerCode('');
   }
 
   return <Popup open={open} setOpen={setOpen}>

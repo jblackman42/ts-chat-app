@@ -12,13 +12,15 @@ const Error = () => <p>Something went wrong</p>;
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
-    errorElement: <Error />,
+    element: <Home />
+  },
+  {
+    path: "/:serverCode",
+    element: <Home />
   },
   {
     path: "/register",
-    element: <Register />,
-    errorElement: <Error />,
+    element: <Register />
   },
 
 ]);

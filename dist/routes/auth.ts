@@ -1,4 +1,4 @@
-import { users } from '../lib/globals';
+import { users, User } from '../lib/globals';
 
 import express, { Request, Response } from 'express';
 const router = express.Router();
@@ -23,7 +23,7 @@ router.post('/register', (req: Request, res: Response): void => {
     existingUser.name = name;
   } else {
     // If no existing user is found, push a new user onto the array
-    const newUser = { clientIp: clientIp, name: name, connected: false };
+    const newUser: User = { clientIp: clientIp, name: name, connected: false, servers: [] };
     users.push(newUser);
   }
 

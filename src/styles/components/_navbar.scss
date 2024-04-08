@@ -24,12 +24,12 @@ nav {
     hr.spacer {
       width: 42px;
       height: 3px;
+      margin-block: 10px;
       border: none;
       background-color: #313338;
     }
 
-    button,
-    a {
+    .link-action {
       border: none;
       outline: none;
       background-color: transparent;
@@ -41,7 +41,12 @@ nav {
       width: 64px;
       margin-inline: $marginInline;
 
+      &:not(:first-of-type) {
+        margin-bottom: 12px;
+      }
+
       .link {
+
         aspect-ratio: 1;
 
         display: grid;
@@ -55,10 +60,6 @@ nav {
         cursor: pointer;
         transition: background-color 100ms linear,
           border-radius 100ms ease;
-
-        &:not(:first-of-type, :last-of-type) {
-          margin-bottom: 12px;
-        }
 
 
         .img-container {
@@ -97,31 +98,37 @@ nav {
         }
 
         &::before {
-          $pillWidth: 8px;
+          $hoverPillWidth: 8px;
           content: '';
           position: absolute;
-          width: $pillWidth;
+          width: $hoverPillWidth;
           height: 20px;
           border-radius: 5px;
           background-color: white;
-          left: calc(-1 * ($marginInline + ($pillWidth / 2)));
+          left: calc(-1 * ($marginInline + ($hoverPillWidth / 2)));
 
           transition: transform 200ms ease;
           transform: scale(0, .6);
         }
 
+        &.active::before {
+          height: 40px;
+        }
+
+        &.active,
         &:hover,
         &:focus-within {
           background-color: #5865F2;
           border-radius: 14px;
 
-          .link-title {
-            display: block;
-          }
-
           &::before {
             transform: scale(1);
           }
+        }
+
+        &:hover .link-title,
+        &:focus-within .link-title {
+          display: block;
         }
       }
     }

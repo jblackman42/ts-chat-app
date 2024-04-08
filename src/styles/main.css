@@ -370,11 +370,11 @@ nav .link-list {
 nav .link-list hr.spacer {
   width: 42px;
   height: 3px;
+  margin-block: 10px;
   border: none;
   background-color: #313338;
 }
-nav .link-list button,
-nav .link-list a {
+nav .link-list .link-action {
   border: none;
   outline: none;
   background-color: transparent;
@@ -384,8 +384,10 @@ nav .link-list a {
   width: 64px;
   margin-inline: 12px;
 }
-nav .link-list button .link,
-nav .link-list a .link {
+nav .link-list .link-action:not(:first-of-type) {
+  margin-bottom: 12px;
+}
+nav .link-list .link-action .link {
   aspect-ratio: 1;
   display: grid;
   place-items: center;
@@ -396,16 +398,10 @@ nav .link-list a .link {
   cursor: pointer;
   transition: background-color 100ms linear, border-radius 100ms ease;
 }
-nav .link-list button .link:not(:first-of-type, :last-of-type),
-nav .link-list a .link:not(:first-of-type, :last-of-type) {
-  margin-bottom: 12px;
-}
-nav .link-list button .link .img-container,
-nav .link-list a .link .img-container {
+nav .link-list .link-action .link .img-container {
   color: white;
 }
-nav .link-list button .link .link-title,
-nav .link-list a .link .link-title {
+nav .link-list .link-action .link .link-title {
   display: none;
   position: absolute;
   white-space: nowrap;
@@ -421,8 +417,7 @@ nav .link-list a .link .link-title {
   transform-origin: left;
   animation: bounceIn 100ms linear forwards;
 }
-nav .link-list button .link .link-title::after,
-nav .link-list a .link .link-title::after {
+nav .link-list .link-action .link .link-title::after {
   content: "";
   width: 8px;
   height: 8px;
@@ -432,8 +427,7 @@ nav .link-list a .link .link-title::after {
   top: 50%;
   transform: translateY(-50%) rotate(45deg);
 }
-nav .link-list button .link::before,
-nav .link-list a .link::before {
+nav .link-list .link-action .link::before {
   content: "";
   position: absolute;
   width: 8px;
@@ -444,21 +438,18 @@ nav .link-list a .link::before {
   transition: transform 200ms ease;
   transform: scale(0, 0.6);
 }
-nav .link-list button .link:hover, nav .link-list button .link:focus-within,
-nav .link-list a .link:hover,
-nav .link-list a .link:focus-within {
+nav .link-list .link-action .link.active::before {
+  height: 40px;
+}
+nav .link-list .link-action .link.active, nav .link-list .link-action .link:hover, nav .link-list .link-action .link:focus-within {
   background-color: #5865F2;
   border-radius: 14px;
 }
-nav .link-list button .link:hover .link-title, nav .link-list button .link:focus-within .link-title,
-nav .link-list a .link:hover .link-title,
-nav .link-list a .link:focus-within .link-title {
-  display: block;
-}
-nav .link-list button .link:hover::before, nav .link-list button .link:focus-within::before,
-nav .link-list a .link:hover::before,
-nav .link-list a .link:focus-within::before {
+nav .link-list .link-action .link.active::before, nav .link-list .link-action .link:hover::before, nav .link-list .link-action .link:focus-within::before {
   transform: scale(1);
+}
+nav .link-list .link-action .link:hover .link-title, nav .link-list .link-action .link:focus-within .link-title {
+  display: block;
 }
 
 @keyframes bounceIn {

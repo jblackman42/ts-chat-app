@@ -12,16 +12,16 @@ type NavbarLinkProps = {
 const NavbarLink = ({ title, to, onClick, icon }: NavbarLinkProps) => {
   const isLink = to !== undefined;
   const content = (
-    <li className="link">
+    <li className={`link ${to === window.location.pathname ? 'active' : ''}`}>
       <div className="img-container">{icon}</div>
       <p className="link-title">{title}</p>
     </li>
   );
 
   return isLink ? (
-    <Link to={to}>{content}</Link>
+    <Link className="link-action" to={to}>{content}</Link>
   ) : (
-    <button onClick={onClick}>{content}</button>
+    <button className="link-action" onClick={onClick}>{content}</button>
   )
 };
 
