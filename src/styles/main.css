@@ -333,6 +333,9 @@ h6 {
   background: radial-gradient(at top center, rgb(52, 73, 94) 25%, rgb(44, 62, 80) 50%);
   display: flex;
   flex-direction: column;
+  background-size: cover;
+  background-position: center;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='2560' height='1440' preserveAspectRatio='none' viewBox='0 0 2560 1440'%3e%3cg mask='url(%26quot%3b%23SvgjsMask2193%26quot%3b)' fill='none'%3e%3crect width='2560' height='1440' x='0' y='0' fill='rgba(88%2c 101%2c 242%2c 1)'%3e%3c/rect%3e%3cg transform='translate(0%2c 0)'%3e%3cuse xlink:href='%23SvgjsPath2194' x='555' y='720' fill='rgba(98%2c 112%2c 252%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2194' x='605' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2195' x='655' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2195' x='705' y='720' fill='rgba(98%2c 112%2c 252%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2196' x='755' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2197' x='805' y='720' fill='rgba(98%2c 112%2c 252%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2194' x='855' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2198' x='905' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2198' x='955' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2199' x='1005' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2197' x='1055' y='720' fill='rgba(98%2c 112%2c 252%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2197' x='1105' y='720' fill='rgba(98%2c 112%2c 252%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2199' x='1155' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2199' x='1205' y='720' fill='rgba(98%2c 112%2c 252%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2200' x='1255' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2199' x='1305' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2195' x='1355' y='720' fill='rgba(98%2c 112%2c 252%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2200' x='1405' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2198' x='1455' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2197' x='1505' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2195' x='1555' y='720' fill='rgba(98%2c 112%2c 252%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2195' x='1605' y='720' fill='rgba(98%2c 112%2c 252%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2194' x='1655' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2201' x='1705' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2197' x='1755' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2199' x='1805' y='720' fill='rgba(98%2c 112%2c 252%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2200' x='1855' y='720' fill='rgba(98%2c 112%2c 252%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2197' x='1905' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2200' x='1955' y='720' fill='rgba(98%2c 112%2c 252%2c 1)'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath2194' x='2005' y='720' fill='rgba(112%2c 124%2c 255%2c 1)'%3e%3c/use%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask2193'%3e%3crect width='2560' height='1440' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cpath d='M-20 0 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0z' id='SvgjsPath2199'%3e%3c/path%3e%3cpath d='M-20 0 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 100 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -100 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0z' id='SvgjsPath2194'%3e%3c/path%3e%3cpath d='M-20 0 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 100 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -100 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 150 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -150 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0z' id='SvgjsPath2195'%3e%3c/path%3e%3cpath d='M-20 0 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 100 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -100 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 150 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -150 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 200 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -200 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0z' id='SvgjsPath2197'%3e%3c/path%3e%3cpath d='M-20 0 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 100 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -100 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 150 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -150 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 200 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -200 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 250 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -250 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0z' id='SvgjsPath2201'%3e%3c/path%3e%3cpath d='M-20 0 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 100 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -100 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 150 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -150 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 200 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -200 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 250 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -250 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 300 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -300 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0z' id='SvgjsPath2196'%3e%3c/path%3e%3cpath d='M-20 0 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 100 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -100 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 150 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -150 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 200 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -200 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 250 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -250 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 300 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -300 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 350 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -350 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0z' id='SvgjsPath2200'%3e%3c/path%3e%3cpath d='M-20 0 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -50 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 100 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -100 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 150 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -150 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 200 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -200 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 250 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -250 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 300 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -300 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 350 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -350 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 400 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0zM-20 -400 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0z' id='SvgjsPath2198'%3e%3c/path%3e%3c/defs%3e%3c/svg%3e");
 }
 
 .flex {
@@ -383,8 +386,6 @@ nav .link-list .link-action {
   display: block;
   width: 64px;
   margin-inline: 12px;
-}
-nav .link-list .link-action:not(:first-of-type) {
   margin-bottom: 12px;
 }
 nav .link-list .link-action .link {
@@ -565,20 +566,25 @@ nav .link-list .link-action .link:hover .link-title, nav .link-list .link-action
   text-align: center;
   margin: 0.5rem;
 }
-#create-server-form label {
+#create-server-form .input-label {
   font-size: 12px;
+  text-align: left;
   text-transform: uppercase;
   font-weight: bold;
+  margin: 0;
   margin-bottom: 8px;
 }
 #create-server-form .input-container {
   position: relative;
+  display: grid;
+}
+#create-server-form .input-container:not(:first-of-type) {
+  margin-top: 1rem;
 }
 #create-server-form input,
 #create-server-form button {
   background-color: #1e1f22;
   border: none;
-  outline: none;
   padding: 10px;
   font-size: 18px;
   color: #fff;
@@ -613,12 +619,33 @@ nav .link-list .link-action .link:hover .link-title, nav .link-list .link-action
   font-size: 16px;
   font-weight: 400;
 }
-#create-server-form button[type=submit]:hover:not(:disabled) {
+#create-server-form button[type=submit]:hover:not(:disabled), #create-server-form button[type=submit]:focus:not(:disabled) {
   background-color: #4752c4;
 }
 #create-server-form button[type=submit]:disabled {
   cursor: default;
   background-color: #313338;
+}
+#create-server-form .icon-selector-container {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 4px;
+}
+#create-server-form .icon-selector-container .icon-selector label {
+  font-size: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  width: 42px;
+  height: 42px;
+  background-color: #1e1f22;
+}
+#create-server-form .icon-selector-container .icon-selector input[type=radio] {
+  display: none;
+}
+#create-server-form .icon-selector-container .icon-selector input[type=radio]:checked ~ label {
+  background-color: #4752c4;
+  color: #fff;
 }
 
 .users-container {
@@ -733,41 +760,64 @@ nav .link-list .link-action .link:hover .link-title, nav .link-list .link-action
 }
 
 #register-form {
-  background-color: white;
-  padding: 2rem 2rem 1rem;
-  border-radius: 12px;
-  color: #555;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: #313338;
+  padding: 2rem;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 480px;
+  max-width: 100vw;
+  box-sizing: border-box;
 }
-#register-form h1 {
+#register-form h2 {
   margin: 0;
+  margin-bottom: 1rem;
   text-align: center;
-  font-size: 48px;
+  color: #fff;
+  font-size: 24px;
+}
+#register-form label {
+  color: #B5BAC1;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
 #register-form .input-container {
+  position: relative;
   display: grid;
+  margin-top: 20px;
+}
+#register-form input {
+  background-color: #1e1f22;
+  border: none;
+  outline: none;
+  padding: 10px;
   font-size: 18px;
-  margin-block: 1rem;
-}
-#register-form .input-container input {
-  border: none;
-  padding: 8px 4px;
-  width: 400px;
-  background-color: #e6e6e6;
+  color: #fff;
   border-radius: 4px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-}
-#register-form button {
+  font-weight: 200;
+  box-sizing: border-box;
   width: 100%;
-  font-weight: bold;
-  color: white;
-  background: rgb(44, 62, 80);
-  border: none;
-  padding: 8px 4px;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
-#register-form button:hover {
-  background: rgb(52, 73, 94);
+#register-form button[type=submit] {
+  background-color: #5865F2;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 18px;
+  color: #fff;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 100ms linear;
+  font-size: 16px;
+  font-weight: 400;
+}
+#register-form button[type=submit]:hover:not(:disabled) {
+  background-color: #4752c4;
+}
+#register-form button[type=submit]:disabled {
+  cursor: default;
+  background-color: #313338;
 }/*# sourceMappingURL=main.css.map */

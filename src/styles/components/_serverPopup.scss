@@ -27,22 +27,28 @@
     margin: .5rem;
   }
 
-  label {
+  .input-label {
     font-size: 12px;
+    text-align: left;
     text-transform: uppercase;
     font-weight: bold;
+    margin: 0;
     margin-bottom: 8px;
   }
 
   .input-container {
     position: relative;
+    display: grid;
+
+    &:not(:first-of-type) {
+      margin-top: 1rem;
+    }
   }
 
   input,
   button {
     background-color: #1e1f22;
     border: none;
-    outline: none;
     padding: 10px;
     font-size: 18px;
     color: #fff;
@@ -81,13 +87,41 @@
     font-size: 16px;
     font-weight: 400;
 
-    &:hover:not(:disabled) {
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
       background-color: #4752c4;
     }
 
     &:disabled {
       cursor: default;
       background-color: #313338;
+    }
+  }
+
+  .icon-selector-container {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 4px;
+
+    .icon-selector {
+      label {
+        font-size: 24px;
+        display: grid;
+        place-items: center;
+        border-radius: 4px;
+        width: 42px;
+        height: 42px;
+        background-color: #1e1f22;
+      }
+
+      input[type=radio] {
+        display: none;
+
+        &:checked~label {
+          background-color: #4752c4;
+          color: #fff;
+        }
+      }
     }
   }
 }

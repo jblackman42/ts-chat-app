@@ -2,13 +2,14 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusLarge, faBug } from '@fortawesome/pro-regular-svg-icons';
+import { faPlusLarge, faArrowRightToArc } from '@fortawesome/pro-regular-svg-icons';
+import { IconDefinition } from "@fortawesome/pro-regular-svg-icons";
 
 import { requestURL, websocketURL } from '../lib/globals';
-import { ServerPopup, Navbar, NavbarLinkProps } from '../components';
+import { CreateServerPopup, JoinServerPopup, Navbar, NavbarLinkProps } from '../components';
 type Message = {
   data: any,
-  messageType: 'connected-users' | 'message' | 'create-server' | 'join-server' | 'verify-server' | 'invalid-server'
+  messageType: 'update-users' | 'message' | 'create-server' | 'join-server' | 'verify-server' | 'invalid-server' | 'change-server'
 }
 type SafeUser = {
   name: string,
@@ -17,11 +18,13 @@ type SafeUser = {
 type ChatMessage = {
   name: string,
   text: string,
-  date: Date
+  date: Date,
+  serverCode: string | null
 }
 type Server = {
   serverName: string,
-  serverCode: string
+  serverCode: string,
+  serverIcon: IconDefinition
 }
 type User = {
   clientIp: string,
@@ -42,31 +45,104 @@ function Home() {
   const userCheckedRef = useRef(false);
   const [messageInput, setMessageInput] = useState<string>('');
   const [allUsers, setAllUsers] = useState<Array<SafeUser>>([]);
-  const [isServerPopupOpen, setIsServerPopupOpen] = useState<Boolean | null>(null);
-  const [currentServer, setCurrentServer] = useState<Server | null>(null);
+  const [isCreateServerPopupOpen, setIsCreateServerPopupOpen] = useState<Boolean | null>(null);
+  const [isJoinServerPopupOpen, setIsJoinServerPopupOpen] = useState<Boolean | null>(null);
+  const [currentServer, setCurrentServer] = useState<string | null>(null);
   const [allMessages, setAllMessages] = useState<Array<ChatMessage>>([]);
 
   const createServerNavBtn: NavbarLinkProps = {
     title: 'Add a server',
-    onClick: () => setIsServerPopupOpen(true),
+    onClick: () => setIsCreateServerPopupOpen(true),
     icon: <FontAwesomeIcon icon={faPlusLarge} />
   }
+  const joinServerNavBtn: NavbarLinkProps = {
+    title: 'Join a server',
+    onClick: () => setIsJoinServerPopupOpen(true),
+    icon: <FontAwesomeIcon icon={faArrowRightToArc} />
+  }
 
-  const [navbarLinks, setNavbarLinks] = useState<Array<NavbarLinkProps>>([createServerNavBtn]);
-  // const navbarLinks: Array<NavbarLinkProps> = [testLink];
+  const constNavLinks: NavbarLinkProps[] = [createServerNavBtn, joinServerNavBtn];
+  const [customNavbarLinks, setCustomNavbarLinks] = useState<Array<NavbarLinkProps>>([]);
+  const navbarLinks = [...customNavbarLinks, ...constNavLinks];
 
+  useEffect(() => {
+    if (!user || !websocket) return;
+    setCurrentServer(serverCode ?? '');
+    setAllMessages([]);
+
+    const message: Message = {
+      data: serverCode,
+      messageType: serverCode && !user.servers.find(server => server.serverCode === serverCode) ? 'join-server' : 'change-server'
+    }
+    websocket.send(JSON.stringify(message));
+  }, [user, websocket, serverCode]);
+
+  useEffect(() => {
+    const initialize = (ws: WebSocket, user: User): void => {
+      user.servers.forEach(server => addServerToNav(server));
+
+      ws.onmessage = (e): void => {
+        const { data, messageType } = JSON.parse(e.data);
+        switch (messageType) {
+          case 'update-users':
+
+            setAllUsers(data);
+            break;
+          case 'message':
+            setAllMessages(msgs => [...msgs, data]);
+            break;
+          case 'invalid-server':
+            navigate('/');
+            break;
+          case 'join-server':
+            user.servers.push(data);
+            addServerToNav(data);
+            setAllMessages(data.messages);
+            break;
+          case 'change-server':
+            setAllMessages(data.messages);
+            break;
+          default:
+            break;
+        }
+      }
+
+      setUser(user);
+      setWebsocket(ws);
+    }
+
+    const createWebSocket = (user: User) => {
+      const ws = new WebSocket(websocketURL);
+      ws.onopen = () => {
+        initialize(ws, user);
+      }
+    }
+
+    if (!userCheckedRef.current) {
+      getUser()
+        .then(user => {
+          if (!user) navigate('/register');
+          userCheckedRef.current = true; // Mark as checked
+          if (user) {
+            createWebSocket(user);
+          } // Setup WebSocket only if user is found
+        })
+        .catch(error => console.log(error));
+    }
+  }, [navigate]);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (!user || !websocket) return
+    const chatMsg: ChatMessage = {
+      name: user.name,
+      text: messageInput,
+      date: new Date(),
+      serverCode: currentServer
+    }
 
     const message: Message = {
-      data: {
-        name: user.name,
-        text: messageInput,
-        date: new Date(),
-        server: currentServer
-      },
+      data: chatMsg,
       messageType: 'message'
     }
 
@@ -75,124 +151,46 @@ function Home() {
   }
 
   const addServerToNav = (serverData: Server): void => {
-    const { serverName, serverCode } = serverData;
+    const { serverName, serverCode, serverIcon } = serverData;
     const serverNavbarLink: NavbarLinkProps = {
       title: serverName,
       to: `/${serverCode}`,
-      icon: <FontAwesomeIcon icon={faBug} />
+      icon: <FontAwesomeIcon icon={serverIcon} />
     }
-    setNavbarLinks(links => [serverNavbarLink, ...links]);
+    setCustomNavbarLinks(links => [...links, serverNavbarLink]);
   }
 
-  const joinServer = (ws: WebSocket, serverData: Server): void => {
-    // if (!user) return;
-    // console.log('join server message sent');
-    // if (user.servers.find(server => server.serverCode === serverData.serverCode)) return;
+  const createServer = (serverName: string, serverCode: string, serverIcon: IconDefinition): void => {
+    if (!websocket || !user) return;
+    const server: Server = {
+      serverName: serverName,
+      serverCode: serverCode,
+      serverIcon: serverIcon
+    };
     const message: Message = {
-      data: serverData,
-      messageType: 'join-server'
-    }
-    ws.send(JSON.stringify(message));
-    addServerToNav(serverData);
-  }
-
-  const createServer = (serverName: string, serverCode: string): void => {
-    if (!websocket) return;
-    const message: Message = {
-      data: {
-        serverName: serverName,
-        serverCode: serverCode
-      },
+      data: server,
       messageType: 'create-server'
     };
     websocket.send(JSON.stringify(message));
+    user.servers.push(server);
     navigate(`/${serverCode}`);
   }
 
-  const verifyServer = (websocket: WebSocket, serverCode: string): void => {
-    const message: Message = {
-      data: { serverCode },
-      messageType: 'verify-server'
-    };
-    websocket.send(JSON.stringify(message));
-  }
-
-  useEffect(() => {
-    const setupWebSocket = () => {
-      const ws = new WebSocket(websocketURL);
-
-      ws.onopen = (): void => {
-        if (serverCode) verifyServer(ws, serverCode);
-
-        ws.onmessage = (e): void => {
-          const { data, messageType } = JSON.parse(e.data);
-          switch (messageType) {
-            case 'connected-users':
-              setAllUsers(data);
-              break;
-            case 'message':
-              setAllMessages(msgs => [...msgs, data]);
-              break;
-            case 'invalid-server':
-              navigate('/');
-              break;
-            case 'join-server':
-              joinServer(ws, data);
-              break;
-            default:
-              break;
-          }
-        }
-      }
-
-      setWebsocket(ws);
-    }
-
-    if (!userCheckedRef.current) {
-      getUser()
-        .then(user => {
-          if (!user) navigate('/register');
-          setUser(user);
-          userCheckedRef.current = true; // Mark as checked
-          if (user) {
-            setupWebSocket();
-            user.servers.forEach((server: Server) => {
-              if (serverCode === server.serverCode) changeServer(server);
-              else addServerToNav(server);
-            })
-          } // Setup WebSocket only if user is found
-        })
-        .catch(error => console.log(error));
-    }
-  }, [navigate]); // This effect runs once after the initial render and never again
-
-  useEffect(() => {
-    const autoScroll = () => {
-      const msgContainer = document.getElementById('message-container');
-      if (msgContainer) {
-        // Ensure scrolling to the bottom
-        msgContainer.scrollTop = msgContainer.scrollHeight;
-      }
-    }
-    autoScroll();
-  }, [allMessages]);
-
-  const changeServer = (server: Server | null) => {
-    if (!websocket || websocket.readyState !== WebSocket.OPEN || !user) return;
-    console.log(server);
-  }
-
-  useEffect(() => {
-    if (!websocket || websocket.readyState !== WebSocket.OPEN || !user) return;
-    // if (!websocket) return;
-    // if (!user || websocket.readyState !== WebSocket.OPEN) return;
-    const server = user.servers.find(server => server.serverCode === serverCode) ?? null;
-    changeServer(server);
-  }, [user, serverCode])
+  // useEffect(() => {
+  //   const autoScroll = () => {
+  //     const msgContainer = document.getElementById('message-container');
+  //     if (msgContainer) {
+  //       // Ensure scrolling to the bottom
+  //       msgContainer.scrollTop = msgContainer.scrollHeight;
+  //     }
+  //   }
+  //   autoScroll();
+  // }, [allMessages]);
 
   return (
     <div className="fullscreen-page flex">
-      <ServerPopup open={isServerPopupOpen} setOpen={setIsServerPopupOpen} createServer={createServer} />
+      <CreateServerPopup open={isCreateServerPopupOpen} setOpen={setIsCreateServerPopupOpen} createServer={createServer} />
+      <JoinServerPopup open={isJoinServerPopupOpen} setOpen={setIsJoinServerPopupOpen} joinServer={(code: string) => navigate(code)} />
       <Navbar links={navbarLinks} />
       <div className="group-chat-container">
         <div id="message-container">

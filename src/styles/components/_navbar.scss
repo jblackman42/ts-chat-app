@@ -40,10 +40,8 @@ nav {
       $marginInline: 12px;
       width: 64px;
       margin-inline: $marginInline;
+      margin-bottom: 12px;
 
-      &:not(:first-of-type) {
-        margin-bottom: 12px;
-      }
 
       .link {
 

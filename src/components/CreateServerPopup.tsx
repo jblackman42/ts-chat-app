@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboard, faCheck } from '@fortawesome/pro-regular-svg-icons';
-
+import { IconDefinition } from "@fortawesome/pro-regular-svg-icons";
+import { faBug, faHouse, faStar, faFaceSmile, faHeart, faGhost, faFire, faGlobe, faSnowflake, faPlanetRinged, faPalette, faFlask, faComments, faCloud, faPoo, faMusic, faLocationDot, faEnvelope } from '@fortawesome/pro-regular-svg-icons';
 import Popup from './Popup';
 
-function ServerPopup({ open = null, setOpen, createServer }: { open: Boolean | null, setOpen: Function, createServer: Function }) {
+const iconOptions = [faBug, faHouse, faStar, faFaceSmile, faHeart, faGhost, faFire, faGlobe, faSnowflake, faPlanetRinged, faPalette, faFlask, faComments, faCloud, faPoo, faMusic, faLocationDot, faEnvelope];
+
+function CreateServerPopup({ open = null, setOpen, createServer }: { open: Boolean | null, setOpen: Function, createServer: Function }) {
   const [serverName, setServerName] = useState<string>('');
   const [serverCode, setServerCode] = useState<string>('');
+  const [serverIcon, setServerIcon] = useState<IconDefinition>(iconOptions[0])
   const [isCodeCoppied, setisCodeCoppied] = useState<Boolean>(false);
 
   const copyCodeToClipboard = async () => {
@@ -44,12 +48,19 @@ function ServerPopup({ open = null, setOpen, createServer }: { open: Boolean | n
     setServerCode(generateUniqueCode());
   }, [open]);
 
+  useEffect(() => {
+    if (open) {
+      document.getElementById('server-name')?.focus();
+    }
+  }, [open]);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    createServer(serverName, serverCode);
+    createServer(serverName, serverCode, serverIcon);
     setOpen(false);
     setServerName('');
     setServerCode('');
+    setServerIcon(iconOptions[0])
   }
 
   return <Popup open={open} setOpen={setOpen}>
@@ -57,8 +68,22 @@ function ServerPopup({ open = null, setOpen, createServer }: { open: Boolean | n
       <div className="form-content">
         <h2>Create Your Server</h2>
         <p>Your server is where you and your friends hand out. Make yours and start talking.</p>
-        <label htmlFor="server-name">Server Name</label>
-        <input type="text" id="server-name" value={serverName} onChange={(e) => setServerName(e.target.value)} required />
+        <div className="input-container">
+          <label htmlFor="server-name" className="input-label">Server Name</label>
+          <input type="text" id="server-name" value={serverName} onChange={(e) => setServerName(e.target.value)} required />
+        </div>
+        <div className="input-container">
+          <p className="input-label">Server Icon</p>
+          <div className="icon-selector-container">
+            {iconOptions.map((icon, i) => {
+              const { iconName } = icon;
+              return <div className="icon-selector" key={i}>
+                <input type="radio" name="server-icon" id={iconName} checked={serverIcon === icon} onChange={() => setServerIcon(icon)} />
+                <label htmlFor={iconName}><FontAwesomeIcon icon={icon} /></label>
+              </div>
+            })}
+          </div>
+        </div>
       </div>
       <div className="form-footer">
         <label htmlFor="server-code">Server Code</label>
@@ -76,4 +101,4 @@ function ServerPopup({ open = null, setOpen, createServer }: { open: Boolean | n
   </Popup>
 }
 
-export default ServerPopup;
+export default CreateServerPopup;

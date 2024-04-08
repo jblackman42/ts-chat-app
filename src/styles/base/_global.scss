@@ -23,6 +23,7 @@ h6 {
 	background: radial-gradient(at top center, rgba(52, 73, 94, 1) 25%, rgba(44, 62, 80, 1) 50%);
 	display: flex;
 	flex-direction: column;
+	@include waveBackground;
 }
 
 .flex {

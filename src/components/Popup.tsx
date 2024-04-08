@@ -4,13 +4,6 @@ import { faXmark } from '@fortawesome/pro-regular-svg-icons';
 
 function Popup({ open = null, setOpen, children }: { open: Boolean | null, setOpen: Function, children: React.ReactNode }) {
 
-
-  useEffect(() => {
-    if (open) {
-      document.getElementById('server-name')?.focus();
-    }
-  }, [open]);
-
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent): void => {
       if (e.key === "Escape") setOpen(false)

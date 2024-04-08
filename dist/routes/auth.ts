@@ -1,11 +1,10 @@
-import { users, User } from '../lib/globals';
+import { users, User, generalServer, ShortServer } from '../lib/globals';
 
 import express, { Request, Response } from 'express';
 const router = express.Router();
 
 
 router.post('/register', (req: Request, res: Response): void => {
-  const refererUrl = req.headers.referer;
   const clientIp = req.ip || req.connection.remoteAddress;
   const { name } = req.body;
 
@@ -21,14 +20,18 @@ router.post('/register', (req: Request, res: Response): void => {
   if (existingUser) {
     // If found, update the existing user's name
     existingUser.name = name;
+    res.send(existingUser);
   } else {
+    const shortGeneralServer: ShortServer = {
+      serverCode: generalServer.serverCode,
+      serverName: generalServer.serverName,
+      serverIcon: generalServer.serverIcon
+    }
     // If no existing user is found, push a new user onto the array
-    const newUser: User = { clientIp: clientIp, name: name, connected: false, servers: [] };
+    const newUser: User = { clientIp: clientIp, name: name, connected: false, connectedServer: null, servers: [shortGeneralServer] };
     users.push(newUser);
+    res.send(newUser);
   }
-
-  // Redirect or send a status based on the refererUrl
-  refererUrl ? res.redirect(refererUrl) : res.sendStatus(200);
 });
 
 router.get('/user', (req: Request, res: Response): void => {
@@ -40,10 +43,7 @@ router.get('/user', (req: Request, res: Response): void => {
 
   const user = users.find(user => user.clientIp === clientIp);
   res.send(user)
-})
+});
 
-router.get('/users', (req: Request, res: Response): void => {
-  res.send(users);
-})
 
 module.exports = router;

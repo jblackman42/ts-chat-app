@@ -7,7 +7,7 @@ import {
 import './styles/main.css';
 
 import { Home, Register } from './Pages';
-const Error = () => <p>Something went wrong</p>;
+// const Error = () => <p>Something went wrong</p>;
 
 const router = createBrowserRouter([
   {

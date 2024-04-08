@@ -11,12 +11,13 @@ type NavbarLinkProps = {
 
 const NavbarLink = ({ title, to, onClick, icon }: NavbarLinkProps) => {
   const isLink = to !== undefined;
-  const content = (
+  const content = <>
     <li className={`link ${to === window.location.pathname ? 'active' : ''}`}>
       <div className="img-container">{icon}</div>
       <p className="link-title">{title}</p>
     </li>
-  );
+    {to === '/' && <hr className="spacer" />}
+  </>
 
   return isLink ? (
     <Link className="link-action" to={to}>{content}</Link>
@@ -30,13 +31,6 @@ function Navbar({ links = [] }: { links?: Array<NavbarLinkProps> }) {
     <nav>
       <p id="text-logo">Discourse</p>
       <ul className="link-list">
-        <NavbarLink
-          title="General"
-          to="/" // Correctly passing a path here
-          icon={<i className="fa-solid fa-user-group"></i>}
-        />
-        {/* Additional NavbarLink items */}
-        <hr className="spacer" />
         {links.map((link, i) => <NavbarLink
           title={link.title}
           to={link.to}
