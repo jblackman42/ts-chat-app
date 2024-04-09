@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusLarge, faArrowRightToArc } from '@fortawesome/pro-regular-svg-icons';
 import { IconDefinition } from "@fortawesome/pro-regular-svg-icons";
 
-import { requestURL, websocketURL } from '../lib/globals';
+import { requestURL } from '../lib/globals';
 import { CreateServerPopup, JoinServerPopup, Navbar, NavbarLinkProps } from '../components';
 type Message = {
   data: any,
@@ -112,7 +112,9 @@ function Home() {
     }
 
     const createWebSocket = (user: User) => {
-      const ws = new WebSocket(websocketURL);
+      const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const wsURL = process.env.NODE_ENV === 'production' ? `${wsProtocol}//${window.location.host}` : `${wsProtocol}//${window.location.hostname}:5000`;
+      const ws = new WebSocket(wsURL);
       ws.onopen = () => {
         initialize(ws, user);
       }

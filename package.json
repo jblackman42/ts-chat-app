@@ -35,7 +35,7 @@
     "ts-node": "^10.9.2"
   },
   "scripts": {
-    "dev": "nodemon dist/server.ts",
+    "dev": "nodemon dev/server.ts",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
