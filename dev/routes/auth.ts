@@ -1,4 +1,4 @@
-import { users, User, generalServer, ShortServer } from '../../src/lib/globals';
+import { users, User, generalServer, ShortServer } from '../lib/globals';
 
 import express, { Request, Response } from 'express';
 const router = express.Router();

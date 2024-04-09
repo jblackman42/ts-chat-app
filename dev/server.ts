@@ -3,7 +3,7 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { setupWebSocket } from './lib/ws';
+import { setupWebSocket } from './routes/ws';
 
 const app = express();
 const server = http.createServer(app);

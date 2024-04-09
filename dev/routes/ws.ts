@@ -1,6 +1,6 @@
 import { Server as HttpServer, IncomingMessage } from 'http';
 import WebSocket, { Server as WebSocketServer } from 'ws';
-import { ShortServer, Server, users, generalServer } from '../../src/lib/globals';
+import { ShortServer, Server, users, generalServer } from '../lib/globals';
 
 // Map to associate WebSockets with client IPs
 type Message = {
