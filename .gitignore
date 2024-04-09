@@ -10,7 +10,7 @@
 
 # production
 /build
-/prod
+/production
 .env
 .npmrc
 web.config

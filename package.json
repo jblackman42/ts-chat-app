@@ -32,14 +32,16 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "nodemon": "^3.1.0",
+    "shx": "^0.3.4",
     "ts-node": "^10.9.2"
   },
   "scripts": {
-    "dev": "nodemon dev/server.ts",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev:backend": "nodemon backend/server.ts",
+    "dev:frontend": "react-scripts start",
+    "build:backend": "cd backend && npx tsc",
+    "build:frontend": "react-scripts build && shx mv build ./production",
+    "build:both": "cd backend && npx tsc && cd .. && react-scripts build && shx mv build ./production",
+    "serve": "node ./production/backend/server.js"
   },
   "eslintConfig": {
     "extends": [

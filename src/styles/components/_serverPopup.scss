@@ -56,27 +56,6 @@
     font-weight: 200;
   }
 
-  #copy-code {
-    background-color: transparent;
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-
-    &[data-copy-msg]::after {
-      content: attr(data-copy-msg);
-      background-color: #1e1f22;
-      color: #fff;
-      padding: 4px 8px;
-      font-size: 14px;
-      position: absolute;
-      top: -28px;
-      left: 50%;
-      transform: translateX(-50%);
-      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    }
-  }
-
   button[type="submit"] {
     background-color: #5865F2;
     margin-left: auto;
@@ -123,5 +102,26 @@
         }
       }
     }
+  }
+}
+
+#copy-code {
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+
+  &[data-copy-msg]::after {
+    content: attr(data-copy-msg);
+    background-color: #1e1f22;
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 14px;
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 }

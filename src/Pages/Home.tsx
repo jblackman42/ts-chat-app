@@ -2,10 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusLarge, faArrowRightToArc } from '@fortawesome/pro-regular-svg-icons';
+import { faPlusLarge, faArrowRightToArc, faClipboard, faCheck } from '@fortawesome/pro-regular-svg-icons';
 import { IconDefinition } from "@fortawesome/pro-regular-svg-icons";
 
-import { requestURL } from '../lib/globals';
 import { CreateServerPopup, JoinServerPopup, Navbar, NavbarLinkProps } from '../components';
 type Message = {
   data: any,
@@ -33,6 +32,8 @@ type User = {
   servers: Array<Server>
 }
 
+const requestURL: string = process.env.NODE_ENV !== 'production' ? `http://localhost:5000` : '';
+
 const getUser = async () => await axios.get(`${requestURL}/auth/user`)
   .then(response => response.data);
 
@@ -49,6 +50,7 @@ function Home() {
   const [isJoinServerPopupOpen, setIsJoinServerPopupOpen] = useState<Boolean | null>(null);
   const [currentServer, setCurrentServer] = useState<string | null>(null);
   const [allMessages, setAllMessages] = useState<Array<ChatMessage>>([]);
+  const [isCodeCoppied, setisCodeCoppied] = useState<Boolean>(false);
 
   const createServerNavBtn: NavbarLinkProps = {
     title: 'Add a server',
@@ -115,8 +117,17 @@ function Home() {
       const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
       const wsURL = process.env.NODE_ENV === 'production' ? `${wsProtocol}//${window.location.host}` : `${wsProtocol}//${window.location.hostname}:5000`;
       const ws = new WebSocket(wsURL);
+      const keepAlive = () => {
+        const timeout = 10000;
+        if (ws.readyState === ws.OPEN) {
+          // console.log('ping');
+          ws.send('')
+        };
+        setTimeout(keepAlive, timeout);
+      }
       ws.onopen = () => {
         initialize(ws, user);
+        keepAlive();
       }
     }
 
@@ -178,16 +189,29 @@ function Home() {
     navigate(`/${serverCode}`);
   }
 
-  // useEffect(() => {
-  //   const autoScroll = () => {
-  //     const msgContainer = document.getElementById('message-container');
-  //     if (msgContainer) {
-  //       // Ensure scrolling to the bottom
-  //       msgContainer.scrollTop = msgContainer.scrollHeight;
-  //     }
-  //   }
-  //   autoScroll();
-  // }, [allMessages]);
+  useEffect(() => {
+    const autoScroll = () => {
+      const msgContainer = document.getElementById('message-container');
+      if (msgContainer) {
+        // Ensure scrolling to the bottom
+        msgContainer.scrollTop = msgContainer.scrollHeight;
+      }
+    }
+    autoScroll();
+  }, [allMessages]);
+
+  const copyCodeToClipboard = async () => {
+    if (!serverCode) return;
+    try {
+      await navigator.clipboard.writeText(serverCode);
+      setisCodeCoppied(true);
+      // Optionally reset the icon back to clipboard after a delay
+      setTimeout(() => setisCodeCoppied(false), 2000); // Reset icon after 2 seconds
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+      // Handle the error (maybe set an error state or log this)
+    }
+  }
 
   return (
     <div className="fullscreen-page flex">
@@ -229,6 +253,15 @@ function Home() {
           <p className="label">offline - {allUsers.filter(user => !user.connected).length}</p>
           {allUsers.filter(user => !user.connected).map((user, i) => <li key={i} className="offline">{user.name}</li>)}
         </ul>
+        {serverCode && <div id="server-invite-container">
+          <label className="input-label">Server Code</label>
+          <div className="input-container">
+            <input type="text" value={serverCode} readOnly />
+            <button id="copy-code" type="button" onClick={(e) => { e.preventDefault(); copyCodeToClipboard(); }} data-copy-msg={isCodeCoppied ? 'Copied!' : null}>
+              <FontAwesomeIcon icon={isCodeCoppied ? faCheck : faClipboard} />
+            </button>
+          </div>
+        </div>}
       </div>
     </div>
   );

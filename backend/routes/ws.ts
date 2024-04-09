@@ -1,6 +1,6 @@
 import { Server as HttpServer, IncomingMessage } from 'http';
 import WebSocket, { Server as WebSocketServer } from 'ws';
-import { ShortServer, Server, users, generalServer } from '../lib/globals';
+import { ShortServer, Server, users, generalServer } from '../../src/lib/globals';
 
 // Map to associate WebSockets with client IPs
 type Message = {
@@ -9,7 +9,10 @@ type Message = {
 }
 const clientMap = new Map<WebSocket, string>(); // (ws, ip;)
 const serverMap = new Map<string, Server>(); // (code, name)
-// const allMessages: Array<ChatMessage> = [];
+
+interface ExtWebSocket extends WebSocket {
+  isAlive: boolean;
+}
 
 serverMap.set(generalServer.serverCode, generalServer);
 
@@ -50,7 +53,21 @@ function addServerToUser(clientIp: string, serverCode: string): void {
 function setupWebSocket(server: HttpServer) {
   const wss = new WebSocketServer({ server });
 
+  const interval = setInterval(function ping() {
+    wss.clients.forEach((ws: WebSocket) => {
+      const extWs = ws as ExtWebSocket;
+
+      if (extWs.isAlive === false) return ws.terminate();
+
+      extWs.isAlive = false;
+      ws.ping();
+    });
+  }, 10000);
+
   wss.on('connection', (ws: WebSocket, req: IncomingMessage) => {
+    const extWs = ws as ExtWebSocket;
+    extWs.isAlive = true;
+
     const ipData = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     if (!ipData) return;
     const clientIp = ipData.toString();
@@ -64,8 +81,16 @@ function setupWebSocket(server: HttpServer) {
       // allMessages.forEach(message => ws.send(JSON.stringify(message)));
     }
 
+    ws.on('pong', () => {
+      // console.log('pong');
+      extWs.isAlive = true;
+    });
+
     ws.on('message', (message: WebSocket.Data) => {
-      const messageData = JSON.parse(message.toString());
+      const messageAsString = message.toString();
+      if (!messageAsString) return;
+      const messageData = JSON.parse(messageAsString);
+
       const { data, messageType } = messageData;
       switch (messageType) {
         case 'message': {
@@ -135,6 +160,7 @@ function setupWebSocket(server: HttpServer) {
     });
 
     ws.on('close', () => {
+      clearInterval(interval);
       const clientIp = clientMap.get(ws);
       const user = users.find(u => u.clientIp === clientIp);
       if (user) {

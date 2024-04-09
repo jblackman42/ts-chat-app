@@ -16,11 +16,13 @@ function Popup({ open = null, setOpen, children }: { open: Boolean | null, setOp
   }, [setOpen]);
 
   const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === document.getElementById('popup-container')) setOpen(false);
+    const popupContainersArr = Array.from(document.getElementsByClassName('popup-container'));
+
+    if (popupContainersArr.find(elem => elem === e.target)) setOpen(false);
   }
 
-  return <div id="popup-container" className={open === true ? 'open' : open === false ? 'close' : ''} onClick={handleOutsideClick}>
-    <div id="popup">
+  return <div className={"popup-container " + (open === true ? 'open' : open === false ? 'close' : '')} onClick={handleOutsideClick}>
+    <div className="popup">
       <button id="close-btn" onClick={() => setOpen(false)}><FontAwesomeIcon icon={faXmark} /></button>
       {children}
     </div>

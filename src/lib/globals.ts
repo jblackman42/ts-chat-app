@@ -1,8 +1,6 @@
 import { faUserGroup } from "@fortawesome/pro-regular-svg-icons";
 import { IconDefinition } from "@fortawesome/pro-regular-svg-icons";
 
-const requestURL: string = process.env.NODE_ENV !== 'production' ? `http://localhost:5000` : '';
-
 type ChatMessage = {
   name: string,
   text: string,
@@ -37,7 +35,6 @@ const generalServer: Server = {
 }
 
 export {
-  requestURL,
   users,
   generalServer
 }

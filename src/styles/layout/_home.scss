@@ -4,12 +4,15 @@
   width: 250px;
   min-height: 100dvh;
   overflow: hidden;
+  position: relative;
 
 
   .users {
     margin: 0;
     padding: 2rem 1rem;
     list-style: none;
+    height: 100%;
+    box-sizing: border-box;
 
     p.label {
       text-transform: uppercase;
@@ -32,6 +35,43 @@
       &.offline {
         color: #949ba4;
         opacity: 0.6;
+      }
+    }
+  }
+
+  #server-invite-container {
+    display: grid;
+    padding: 1rem;
+    position: absolute;
+    bottom: 0;
+
+    .input-label {
+      font-size: 12px;
+      text-align: left;
+      text-transform: uppercase;
+      font-weight: bold;
+      margin: 0;
+      margin-bottom: 4px;
+    }
+
+    .input-container {
+      display: flex;
+      position: relative;
+
+      input {
+        box-sizing: border-box;
+        width: 100%;
+      }
+
+      input,
+      button {
+        background-color: #1e1f22;
+        border: none;
+        padding: 10px;
+        font-size: 18px;
+        color: #fff;
+        border-radius: 4px;
+        font-weight: 200;
       }
     }
   }
@@ -133,5 +173,11 @@
         opacity: 0.6;
       }
     }
+  }
+}
+
+@media screen and (max-width:768px) {
+  .users-container {
+    display: none;
   }
 }

@@ -86,7 +86,7 @@ function CreateServerPopup({ open = null, setOpen, createServer }: { open: Boole
         </div>
       </div>
       <div className="form-footer">
-        <label htmlFor="server-code">Server Code</label>
+        <label htmlFor="server-code" className="input-label">Server Code</label>
         <div className="flex">
           <div className="input-container">
             <input type="text" id="server-code" value={serverCode} readOnly />

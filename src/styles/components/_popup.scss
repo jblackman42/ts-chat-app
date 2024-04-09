@@ -1,4 +1,4 @@
-#popup-container {
+.popup-container {
   position: fixed;
   inset: 0;
   background-color: #000000aa;
@@ -6,7 +6,7 @@
   place-items: center;
   color: #FFF;
 
-  #popup {
+  .popup {
     background-color: #313338;
     color: #949ba4;
     border-radius: 4px;
@@ -36,7 +36,7 @@
     opacity: 1;
     display: grid;
 
-    #popup {
+    .popup {
       animation: bounceFadeIn 150ms linear forwards;
     }
   }
@@ -47,7 +47,7 @@
       fadeOut 100ms linear forwards,
       hide 1ms linear 100ms forwards;
 
-    #popup {
+    .popup {
       animation: fadeZoomOut 100ms linear forwards;
     }
   }

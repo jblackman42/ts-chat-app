@@ -1,3 +1,25 @@
+@media screen and (max-width:425px) {
+
+  nav #text-logo {
+    font-size: 12px !important;
+  }
+
+  nav .link-list .link-action {
+    width: 48px !important;
+
+    .link {
+      font-size: 24px !important;
+    }
+
+    .link::before {
+
+      $marginInline: 12px;
+      width: 6px !important;
+      left: calc(-1 * ($marginInline + (6px / 2))) !important;
+    }
+  }
+}
+
 nav {
   background-color: #1e1f22;
   color: #fff;
@@ -30,17 +52,16 @@ nav {
     }
 
     .link-action {
+      width: 64px;
+
+      $marginInline: 12px;
       border: none;
       outline: none;
       background-color: transparent;
-      margin: 0;
+      margin: 0 $marginInline 12px;
       padding: 0;
       display: block;
 
-      $marginInline: 12px;
-      width: 64px;
-      margin-inline: $marginInline;
-      margin-bottom: 12px;
 
 
       .link {
@@ -96,14 +117,13 @@ nav {
         }
 
         &::before {
-          $hoverPillWidth: 8px;
           content: '';
           position: absolute;
-          width: $hoverPillWidth;
           height: 20px;
           border-radius: 5px;
           background-color: white;
-          left: calc(-1 * ($marginInline + ($hoverPillWidth / 2)));
+          width: 8px;
+          left: calc(-1 * ($marginInline + (8px / 2)));
 
           transition: transform 200ms ease;
           transform: scale(0, .6);
