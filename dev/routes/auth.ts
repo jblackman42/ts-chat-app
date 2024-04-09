@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 router.post('/register', (req: Request, res: Response): void => {
-  const clientIp = req.ip || req.connection.remoteAddress;
+  const clientIp = req.headers['x-forwarded-for'] || req.ip;
   const { name } = req.body;
 
   // Validate input
@@ -14,7 +14,7 @@ router.post('/register', (req: Request, res: Response): void => {
     return; // Early return to prevent further execution
   }
 
-  // Attempt to find an existing user with the same clientIp
+  // Attempt to find an existing user with the same clientIp  
   const existingUser = users.find(user => user.clientIp === clientIp);
 
   if (existingUser) {
@@ -28,14 +28,14 @@ router.post('/register', (req: Request, res: Response): void => {
       serverIcon: generalServer.serverIcon
     }
     // If no existing user is found, push a new user onto the array
-    const newUser: User = { clientIp: clientIp, name: name, connected: false, connectedServer: null, servers: [shortGeneralServer] };
+    const newUser: User = { clientIp: clientIp.toString(), name: name, connected: false, connectedServer: null, servers: [shortGeneralServer] };
     users.push(newUser);
     res.send(newUser);
   }
 });
 
 router.get('/user', (req: Request, res: Response): void => {
-  const clientIp = req.ip || req.connection.remoteAddress;
+  const clientIp = req.headers['x-forwarded-for'] || req.ip;
   if (!clientIp) {
     res.status(500).send("Internal server error");
     return
