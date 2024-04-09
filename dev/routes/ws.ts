@@ -51,7 +51,9 @@ function setupWebSocket(server: HttpServer) {
   const wss = new WebSocketServer({ server });
 
   wss.on('connection', (ws: WebSocket, req: IncomingMessage) => {
-    const clientIp = req.socket.remoteAddress || '';
+    const ipData = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    if (!ipData) return;
+    const clientIp = ipData.toString();
     clientMap.set(ws, clientIp);
 
     const user = users.find(user => user.clientIp === clientIp);

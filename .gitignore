@@ -13,6 +13,7 @@
 /prod
 .env
 .npmrc
+web.config
 
 # misc
 .DS_Store
